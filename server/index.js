@@ -6,8 +6,7 @@ const Student=require('./models/Student');
 const Faculty=require('./models/Faculty');
 const cors=require('cors');
 
-
-
+const mahesh=require('mongoose');
 const app = express();
 const port = 8000;
 app.use(cors());
