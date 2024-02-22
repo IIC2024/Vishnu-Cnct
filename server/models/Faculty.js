@@ -4,12 +4,14 @@ const bcrypt = require('bcrypt');
 const PublicationSchema = new mongoose.Schema({
   title: { type: String, required: true },
   authors: { type: [String], required: true },
+  description: { type: String },
   // Add any other publication-related fields you need
 });
 
 const ProjectSchema = new mongoose.Schema({
   title: { type: String, required: true },
   description: { type: String },
+  tech_stack:{type:[String]},
   // Add any other project-related fields you need
 });
 
@@ -29,8 +31,7 @@ const FacultySchema = new mongoose.Schema({
   linkedinProfile: { type: String },
   googleScholarProfile: { type: String },
   awards: { type: [String] }, // Array of awards
-});
-
+},{collection:"Faculty"});
 // Hash the password before saving to the database
 FacultySchema.pre('save', async function (next) {
   try {
@@ -41,7 +42,5 @@ FacultySchema.pre('save', async function (next) {
     next(error);
   }
 });
-
 const Faculty = mongoose.model('Faculty', FacultySchema);
-
 module.exports = Faculty;
