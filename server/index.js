@@ -127,7 +127,6 @@ try{
         }
         if(isFaculty){
           return res.status(201).json({
-            message: "Profile Found",
             userid:user.facultyId,
             username: user.username,
             isfaculty: user.isfaculty,
@@ -147,7 +146,6 @@ try{
         }
         else{
         return res.status(201).json({
-          message: "Profile Found",
           userid: user.studentId,
           username: user.username,
           geeksForGeeksProfile: user.geeksForGeeksProfile,
