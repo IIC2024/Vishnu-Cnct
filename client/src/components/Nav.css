@@ -1,0 +1,41 @@
+@import '~@fortawesome/fontawesome-free/css/all.css';
+
+.nav{
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    top: 0;
+    height: 100%;
+}
+.nav-links:hover{
+    background: -webkit-linear-gradient(#c17a7a, #d841c9);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 1.6rem;
+    transition: all 0.5s ease-in-out;
+}
+nav ul li{
+    text-decoration: none;
+    list-style: none;
+    padding:20px 0px;
+}
+.navbar-logo{
+      height:3.2rem;
+      cursor:pointer;
+      z-index: 1;
+      margin-top: 30px;
+      padding: 0 41px;
+}
+.nav-links{
+    text-decoration: none;
+    background: -webkit-linear-gradient(90deg, rgb(45, 117, 117) 0%, rgb(75, 76, 166) 35%, rgb(1, 28, 48) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 1.2rem;
+    font-weight: 600;
+    padding:15px;
+    white-space: nowrap;
+}

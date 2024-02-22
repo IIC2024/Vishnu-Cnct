@@ -1,0 +1,38 @@
+.up{
+    margin: 10px;
+}
+.buttons{
+    text-align: right;
+    display: flex;
+    justify-content:flex-end;
+    align-items: center;
+    padding: 0 30px;
+    font-size: small;
+    z-index: 1;
+    font-family: "Kanit", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+.buttons button{
+    width: 120px;
+    height: 30px;
+    background-color: rgb(78, 148, 228);
+    border: none;
+    margin: 0 10px;
+    border-radius: 10px;
+    border: 2px solid rgb(0, 153, 255);
+}
+.up h3{
+    background: -webkit-linear-gradient(0deg,rgb(5, 1, 75) 0%, rgba(9,9,121,1) 35%, rgba(0,61,200,1) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+      font-size:0.9rem;
+      cursor:pointer;
+      z-index: 1;
+      font-family: "Protest Strike", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    text-transform: uppercase;
+    margin-right: 65%;
+
+}
