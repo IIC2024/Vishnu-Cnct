@@ -4,6 +4,7 @@ import Login from "./components/Login";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import LandingPage from "./components/LandingPage";
 import Home from "./components/Home";
+import Profile from "./components/Profile";
 function App() {
   return (
    <UserProvider>
@@ -13,6 +14,7 @@ function App() {
   <Route exact path="signup" element={<Register />} />
   <Route exact path="login" element={<Login />} />
   <Route exact path="home" element={<Home />} />
+  <Route exact path="profile" element={<Profile />} />
   </Routes>
 </Router>
    </UserProvider>
