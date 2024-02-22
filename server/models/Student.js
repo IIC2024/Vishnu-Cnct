@@ -60,7 +60,7 @@ const StudentSchema = new mongoose.Schema({
   dateOfBirth: { type: Date },
   awards: { type: [AwardSchema] }, // Array of awards
   achievements: { type: [AchievementSchema] }, // Array of achievements
-});
+},{collection:"Student"});
 
 // Hash the password before saving to the database
 StudentSchema.pre('save', async function (next) {
