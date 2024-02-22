@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { toast } from "react-toastify";
 import { useUserContext } from "./UserContext";
 import { Link } from 'react-router-dom';
+import './Login.css'
 const Register = () => {
   const [userData, setUserData] = useState({
     username: "",
@@ -9,6 +10,7 @@ const Register = () => {
     password: "",
     isfaculty: false,
   });
+  const Navigate = useNavigate();
 const { setUserId, setUserName ,setIsFaculty  } = useUserContext();
  const handleSubmit = (e) => {
     e.preventDefault();
@@ -28,6 +30,7 @@ const { setUserId, setUserName ,setIsFaculty  } = useUserContext();
             setUserId(userData.userid);
             setUserName(userData.username);
             setIsFaculty(userData.isfaculty)
+            Navigate("/login");
           } else if (response.status === 400) {
             // Validation or bad request error
             response.json().then((data) => {
@@ -48,85 +51,86 @@ const { setUserId, setUserName ,setIsFaculty  } = useUserContext();
   };
   return (
     <div className="signup-form">
-     
-      <form className="form-container">
-        <div className="inputs">
-          <label htmlFor="username">
-            <i className="fa-solid fa-user"></i>
-          </label>
-          <input
-            type="text"
-            id="username"
-            name="username"
-            placeholder="Username"
-            value={userData.username}
-            onChange={(e) =>
-              setUserData({ ...userData, username: e.target.value })
-            }
-          />
-        </div>
-        <div className="inputs">
-          <label htmlFor="userid">
-            <i className="fa-solid fa-envelope"></i>
-          </label>
-          <input
-            type="text"
-            name="userid"
-            id="userid"
-            placeholder="User ID"
-            value={userData.userid}
-            onChange={(e) =>
-              setUserData({ ...userData, userid: e.target.value })
-            }
-          />
-        </div>
-        <div className="inputs">
-          <label htmlFor="password">
-            <i className="fa-solid fa-lock"></i>
-          </label>
-          <input
-            id="password"
-            type="password"
-            name="password"
-            placeholder="Password"
-            value={userData.password}
-            onChange={(e) =>
-              setUserData({ ...userData, password: e.target.value })
-            }
-          />
+      <div className="sign2">
+        <form className="form-container">
+          <div className="inputs">
+            <label htmlFor="username">
+              <i className="fa-solid fa-user"></i>
+            </label>
+            <input
+              type="text"
+              id="username"
+              name="username"
+              placeholder="Username"
+              value={userData.username}
+              onChange={(e) =>
+                setUserData({ ...userData, username: e.target.value })
+              }
+            />
           </div>
-      
-       
-        <div className="checkbox">
-          <input
-            type="checkbox"
-            name="terms"
-            id="checkbox"
-            checked={userData.terms}
-            onChange={() =>
-              setUserData({ ...userData, isfaculty: !userData.isfaculty })
-            }
-          />
-          <label htmlFor="checkbox">
-           Are you Faculty ?
-          </label>
+          <div className="inputs">
+            <label htmlFor="userid">
+              <i className="fa-solid fa-envelope"></i>
+            </label>
+            <input
+              type="text"
+              name="userid"
+              id="userid"
+              placeholder="User ID"
+              value={userData.userid}
+              onChange={(e) =>
+                setUserData({ ...userData, userid: e.target.value })
+              }
+            />
+          </div>
+          <div className="inputs">
+            <label htmlFor="password">
+              <i className="fa-solid fa-lock"></i>
+            </label>
+            <input
+              id="password"
+              type="password"
+              name="password"
+              placeholder="Password"
+              value={userData.password}
+              onChange={(e) =>
+                setUserData({ ...userData, password: e.target.value })
+              }
+            />
+            </div>
+        
+        
+          <div className="checkbox">
+            <input
+              type="checkbox"
+              name="terms"
+              id="checkbox"
+              checked={userData.terms}
+              onChange={() =>
+                setUserData({ ...userData, isfaculty: !userData.isfaculty })
+              }
+            />
+            <label htmlFor="checkbox">
+            Are you Faculty ?
+            </label>
+          </div>
+        </form>
+    
+        <div className="or">
+          <button className="btn submit" onClick={handleSubmit}>
+            <span>
+              <i className="fa-solid fa-hand-holding-droplet red"></i> Sign Up
+            </span>
+          </button>
         </div>
-      </form>
-   
-      <div className="or">
-        <button className="btn submit" onClick={handleSubmit}>
-          <span>
-            <i className="fa-solid fa-hand-holding-droplet red"></i> Sign Up
-          </span>
-        </button>
-      </div>
-      <div className="or checkbox">
-        <p>
-          Alreay a User..?{" "}
-          <label>
-            <Link to="/login">Click Here</Link>
-          </label>
-        </p>
+        <div className="or checkbox">
+          <p>
+            Alreay a User..?{" "}
+            <label>
+              <Link to="/login">Click Here</Link>
+            </label>
+          </p>
+        </div>
       </div>
     </div>
   );
