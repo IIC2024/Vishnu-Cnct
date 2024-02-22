@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { toast } from "react-toastify";
 import { useUserContext } from "./UserContext";
-import { Link } from 'react-router-dom';
+import { Link ,useNavigate } from 'react-router-dom';
 import './Login.css'
 const Register = () => {
   const [userData, setUserData] = useState({
@@ -10,6 +10,7 @@ const Register = () => {
     password: "",
     isfaculty: false,
   });
+  const Navigate = useNavigate();
 const { setUserId, setUserName ,setIsFaculty  } = useUserContext();
  const handleSubmit = (e) => {
     e.preventDefault();
@@ -29,6 +30,7 @@ const { setUserId, setUserName ,setIsFaculty  } = useUserContext();
             setUserId(userData.userid);
             setUserName(userData.username);
             setIsFaculty(userData.isfaculty)
+            Navigate("/login");
           } else if (response.status === 400) {
             // Validation or bad request error
             response.json().then((data) => {

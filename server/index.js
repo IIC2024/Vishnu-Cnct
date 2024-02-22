@@ -23,8 +23,6 @@ const db=mongoose.connection;
 db.once('open', () => {
     console.log('Connected to MongoDB');})
 // Define a user schema
-
-
 // Create a User model based on the schema
   // Import your Faculty model
 
@@ -101,7 +99,7 @@ app.post('/login', async (req, res) => {
         }
         return res.status(201).json({
           message: "Login successful",
-          userEmail: user.userid,
+          userId: user.userid,
           username: user.username,
         });
         console.log("completed");
@@ -109,6 +107,71 @@ app.post('/login', async (req, res) => {
         console.error("Error during login:", error);
         res.status(500).json({ message: "Internal server error" });
       }
+});
+app.get('/profile/:userId',async (req,res)=>{
+try{
+      const userid=req.params.userId;
+      const isFaculty = req.query.isFaculty === 'true';
+      console.log(userid,isFaculty);
+      let user;
+      if(isFaculty){
+          user= await Faculty.findOne({facultyId:userid});
+      }
+      else{
+        user= await Student.findOne({studentId:userid});
+      }
+      console.log(user);
+
+       if (!user) {
+          return res.status(401).json({ message: "User not found" });
+        }
+        if(isFaculty){
+          return res.status(201).json({
+            userid:user.facultyId,
+            username: user.username,
+            isfaculty: user.isfaculty,
+            department: user.department,
+            designation: user.designation,
+            email: user.email,
+            contactNumber: user.contactNumber,
+            address: user.address,
+            dateOfBirth: user.dateOfBirth,
+            publications: user.publications,
+            projects: user.projects,
+            linkedinProfile: user.linkedinProfile,
+            googleScholarProfile: user.googleScholarProfile,
+            awards: user.awards,
+  
+          });
+        }
+        else{
+        return res.status(201).json({
+          userid: user.studentId,
+          username: user.username,
+          geeksForGeeksProfile: user.geeksForGeeksProfile,
+          linkedinProfile: user.linkedinProfile,
+          githubProfile: user.githubProfile,
+          year: user.year,
+          department: user.department,
+          skills: user.skills || [],
+          projects: user.projects || [],
+          publications: user.publications || [],
+          posts: user.posts || [],
+          leetcodeProfile: user.leetcodeProfile,
+          courseraProfile: user.courseraProfile,
+          email: user.email,
+          contactNumber: user.contactNumber,
+          address: user.address,
+          dateOfBirth: user.dateOfBirth,
+          awards: user.awards || [],
+          achievements: user.achievements,
+
+        });}
+
+}
+catch(error){
+
+}
 });
 
 app.listen(port, () => {

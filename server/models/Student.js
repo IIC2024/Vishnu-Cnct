@@ -9,12 +9,14 @@ const SkillSchema = new mongoose.Schema({
 const ProjectSchema = new mongoose.Schema({
   title: { type: String, required: true },
   description: { type: String },
+  tech_stack:{type:[String]},
   // Add any other project-related fields you need
 });
 
 const PublicationSchema = new mongoose.Schema({
   title: { type: String, required: true },
   authors: { type: [String], required: true },
+  description: { type: String }
   // Add any other publication-related fields you need
 });
 
