@@ -27,55 +27,60 @@ db.once('open', () => {
   // Import your Faculty model
 
 app.post('/signup', async (req, res) => {
-    try {
-        const userData = req.body;
-        console.log(userData);
-        const requiredFields = [
-          "username",
-          "userid",
-          "password",
-          "isfaculty",
-          
-        ];
+  try {
+    const userData = req.body;
+
+    const requiredFields = ["username", "userid", "password", "isfaculty"];
     
-        // Check if all required fields are present
-      
-    
-        // Check if the email already exists
-        let existingUser;
-        if(userData.isfaculty)
-         existingUser = await Faculty.findOne({ facultyId: userData.userid });
-        else
-        existingUser = await Student.findOne({ studentId: userData.userid });
-        console.log(existingUser);
-        if (existingUser) {
-          return res.status(400).json({
-            message: "User already exists",
-          });
-          console.log("already exisit");
+    // Check if all required fields are present
+    for (const field of requiredFields) {
+        if (!(field in userData)) {
+            return res.status(400).json({
+                message: `Missing required field: ${field}`
+            });
         }
-        let newUser;
-        if(userData.isfaculty)
-        newUser = new Faculty({
-            facultyId:userData.userid,
-            password:userData.password,
-            username:userData.username,
-            isfaculty:userData.isfaculty});
-        else
-        newUser = new Student({
-            studentId:userData.userid,
-            password:userData.password,
-            username:userData.username,
-            isfaculty:userData.isfaculty
+    }
+
+    // Check if the user already exists
+    let existingUser;
+    if (userData.isfaculty) {
+        existingUser = await Faculty.findOne({ facultyId: userData.userid });
+    } else {
+        existingUser = await Student.findOne({ studentId: userData.userid });
+    }
+    if (existingUser) {
+        return res.status(400).json({
+            message: "User already exists"
         });
-        console.log(newUser.isfaculty);
-        await newUser.save();
-        res.status(201).json({ message: "User registered successfully" });
-      } catch (error) {
-        console.error("Error registering user:", error);
-        res.status(500).json({ message: "Internal server error" });
-      }
-  
+    }
+
+    // Create a new user object based on user type
+    let newUser;
+    if (userData.isfaculty) {
+        newUser = new Faculty({
+            facultyId: userData.userid,
+            password: userData.password,
+            username: userData.username,
+            isfaculty: userData.isfaculty
+        });
+    } else {
+        newUser = new Student({
+            studentId: userData.userid,
+            password: userData.password,
+            username: userData.username,
+            isfaculty: userData.isfaculty
+        });
+    }
+
+    // Save the new user
+    await newUser.save();
+    
+    res.status(201).json({ message: "User registered successfully" });
+} catch (error) {
+    console.error("Error registering user:", error);
+    res.status(500).json({ message: "Internal server error" });
+}
+
 });
 app.post('/login', async (req, res) => {
     try {
